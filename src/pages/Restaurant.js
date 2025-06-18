@@ -3,11 +3,14 @@ import Shimmer from "../components/Shimmer";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategory from "../components/RestaurantCategory";
+import { useState } from "react";
 
 
 const Restaurant = () => {
   const { resId } = useParams();
   const resInfo=useRestaurantMenu(resId);
+
+  const [showId,setShowId]=useState(null);
 
   if (resInfo == null) return <Shimmer />;
 
@@ -27,7 +30,12 @@ const Restaurant = () => {
         <h2>{city}</h2>
       </div>
       <br/>
-      {categories.map((category)=><RestaurantCategory key={category?.card?.card?.categoryId} data={category?.card?.card}/>)}
+      {categories.map((category)=>
+      <RestaurantCategory 
+        key={category?.card?.card?.categoryId} 
+        data={category?.card?.card} 
+        showItems={showId===category?.card?.card?.categoryId?true:false} 
+        updateFun={(show)=> show?setShowId(category?.card?.card?.categoryId):setShowId(null)}/>)}
     </div>
   );
 };
