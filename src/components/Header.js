@@ -2,10 +2,12 @@ import { LOGO_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import LoginPage from "./LoginPage";
 
 const Header = () => {
   const status = useOnlineStatus();
-  const [logBtn, setLogBtn] = useState("Login");
+  const [logBtn, setLogBtn] = useState(localStorage.getItem("username")?localStorage.getItem("username"):"Login"); 
+  const [show,setShow]=useState(false);
   return (
     <div>
     <div className="header shadow-xl shadow-[#7d7d7d35] relative">
@@ -21,14 +23,15 @@ const Header = () => {
           <li><Link className="List" to="/cart">Cart</Link></li>
           <li>
             <button className="SearchBtn" onClick={()=>{
-              logBtn=="Login"?setLogBtn("Logout"):setLogBtn("Login");
+              setShow(!show);
             }}>
-              {logBtn}
+              {logBtn+"🧑🏻"}
             </button>
           </li>
         </ul>
       </div>
     </div>
+    <LoginPage setLogBtn={setLogBtn} show={show} setShow={setShow}/>
     {status!=true?<div className="status">OFFLINE</div>:""}
     </div>
   );
