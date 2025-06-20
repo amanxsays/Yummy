@@ -1,13 +1,16 @@
 import { LOGO_URL } from "../utils/constants";
+import { FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import LoginPage from "./LoginPage";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const status = useOnlineStatus();
   const [logBtn, setLogBtn] = useState(localStorage.getItem("username")?localStorage.getItem("username"):"Login"); 
   const [show,setShow]=useState(false);
+  const cartItems=useSelector((store)=> store.cart.items);
   return (
     <div>
     <div className="header shadow-xl shadow-[#7d7d7d35] relative">
@@ -20,7 +23,7 @@ const Header = () => {
           <li><Link className="List" to="/">Home</Link></li>
           <li><Link className="List" to="/about">About Us</Link></li>
           <li><Link className="List" to="/contact">Contact Us</Link></li>
-          <li><Link className="List" to="/cart">Cart</Link></li>
+          <li><Link to="/cart"><FaShoppingCart className="scale-170"/></Link><span className="text-xs pl-5 absolute text-[#f6b730]">{cartItems.length}</span></li>
           <li>
             <button className="SearchBtn" onClick={()=>{
               setShow(!show);

@@ -9,15 +9,20 @@ import Contact from "./pages/Contact";
 import Error from "./pages/Error";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import Restaurant from "./pages/Restaurant";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 
 //about page lazy import
-const About= lazy(() => import("./pages/About"));
+const About = lazy(() => import("./pages/About"));
+
 
 const App = () => (
-  <div className="appLayout overflow-x-hidden">
-    <Header />
-    <Outlet />
-  </div>
+  <Provider store={appStore}>
+    <div className="appLayout overflow-x-hidden">
+      <Header />
+      <Outlet />
+    </div>
+  </Provider>
 );
 
 const Pages = createBrowserRouter([
@@ -26,12 +31,16 @@ const Pages = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path:"/",
-        element:<Body/>
+        path: "/",
+        element: <Body />,
       },
       {
         path: "about",
-        element: <Suspense fallback={<div className="body"></div>}><About /></Suspense>,
+        element: (
+          <Suspense fallback={<div className="body"></div>}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "contact",

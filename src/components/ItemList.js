@@ -1,7 +1,13 @@
 import { BiFoodTag } from "react-icons/bi";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 
 const ItemList = ({ itemCards }) => {
+  const dispatch=useDispatch();
+  const handleAddItem=(item)=>{
+    dispatch(addItem(item))
+  }
   return (
     <div className="menu-container">
       {itemCards?.map((item) => {
@@ -31,7 +37,7 @@ const ItemList = ({ itemCards }) => {
                 ""
               )}
             </div>
-            <div className="item-image">
+            <div className="item-image relative">
               <img
                 src={
                   dish?.imageId
@@ -40,6 +46,7 @@ const ItemList = ({ itemCards }) => {
                     : "https://imgs.search.brave.com/ooTyFORF9MvPnezEqryOC-HzT4SpEqb1WtxypOsX3m0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQw/Mzk3MzQxOS9waG90/by90YWJsZS10b3At/b2YtZm9vZC1zcHJl/YWQtb24tdGFibGUu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PTJjUk9VTXVyWlV0/dXZxRi1icDhsVmla/MHdEWEJOa1pCY0lq/UWoyUVFsZWM9"
                 }
               ></img>
+              <button className="absolute top-7/9 left-8 bg-white text-green-500 px-3 rounded-sm cursor-pointer font-bold" onClick={()=>handleAddItem(item)}>+ ADD</button>
             </div>
           </div>
         );
