@@ -25,7 +25,7 @@ const App = () => (
   </Provider>
 );
 
-const Pages = createBrowserRouter([
+export const Pages = createBrowserRouter([
   {
     element: <App />,
     errorElement: <Error />,

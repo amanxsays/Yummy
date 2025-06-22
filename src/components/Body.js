@@ -12,7 +12,7 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [next, setNext] = useState(0);
   const CardWithDiscount=withDiscount(Card); 
-
+  
   useEffect(() => {
     fetchData();
   }, [next]); //[] is default what should be shown before useEffect active
